@@ -1,6 +1,8 @@
 using Cinemachine.Utility;
 using Player.Input;
 using SimpleRPG.Services.Input;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +19,7 @@ namespace Player.Movement
         private Rigidbody2D _rb;
         private BoxCollider2D _bc;
 
+        private bool _isDashing;
         private Vector2 _frameInput;
         private Vector2 _frameVelocity;
         #endregion
@@ -28,6 +31,7 @@ namespace Player.Movement
         private void OnEnable()
         {
             _inputService.OnMovementAction += GetMoveInput;
+            _inputService.OnDashToggle += OnDash;
         }
 
         private void Start()
@@ -38,13 +42,15 @@ namespace Player.Movement
 
         private void FixedUpdate()
         {
-            HandleDirection();
+            if (!_isDashing)
+                HandleDirection();
             ApplyMovement();
         }
 
         private void OnDisable()
         {
             _inputService.OnMovementAction -= GetMoveInput;
+            _inputService.OnDashToggle -= OnDash;
         }
 
         #region Movement
@@ -55,6 +61,35 @@ namespace Player.Movement
             _frameVelocity = _frameInput * speed;
         }
         private void ApplyMovement() => _rb.linearVelocity = _frameVelocity;
+
+        private void OnDash()
+        {
+            if (_isDashing || _frameInput.magnitude < 0.1f) return;
+
+            StartCoroutine(DashCoroutine());
+        }
+
+        private IEnumerator DashCoroutine()
+        {
+            _isDashing = true;
+
+            _frameVelocity *= _movementSettings.DashSpeed;
+            yield return new WaitForSeconds(_movementSettings.DashDuration);
+
+            float elapsedTime = 0;
+            Vector2 startingVelocity = _frameVelocity;
+
+            while (elapsedTime < _movementSettings.DashSlowdown)
+            {
+                _frameVelocity = Vector2.Lerp(startingVelocity, Vector2.zero, elapsedTime / _movementSettings.DashSlowdown);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            _frameVelocity = Vector2.zero;
+            _isDashing = false;
+        }
         #endregion
     }
 }
