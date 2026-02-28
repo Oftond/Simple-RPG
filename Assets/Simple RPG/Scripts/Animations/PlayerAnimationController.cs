@@ -17,7 +17,7 @@ public class PlayerAnimationController : BaseAnimationController
 
     private int _currentState;
     private int _idleDirection;
-    private bool _isDashing = true;
+    private bool _isDashing;
 
     private static readonly int Idle = Animator.StringToHash("Idle");
     private static readonly int Walk = Animator.StringToHash("Walk");
@@ -42,6 +42,7 @@ public class PlayerAnimationController : BaseAnimationController
         if (state == _currentState) return;
 
         _animator.CrossFade(state, 0, 0);
+
         _currentState = state;
     }
 
@@ -60,11 +61,12 @@ public class PlayerAnimationController : BaseAnimationController
     {
         if (Time.time < lockedTill) return _currentState;
 
-        if (_camera.ScreenToWorldPoint(_pis.CurrentMausePosition).x > transform.position.x)
-            _spriteRenderer.flipX = true;
-        else _spriteRenderer.flipX = false;
+        //if (_camera.ScreenToWorldPoint(_pis.CurrentMausePosition).x > transform.position.x)
+        //    _spriteRenderer.flipX = false;
+        //else _spriteRenderer.flipX = true;
 
-        if (_isDashing) return Dash;
+        if (_isDashing)
+            return Dash;
 
         if (_pis.IsMove)
         {
@@ -74,19 +76,6 @@ public class PlayerAnimationController : BaseAnimationController
         }
 
         if (_animator.speed > 1) _animator.speed = 1;
-
-        //if (_pms.FrameInput.x > 0)
-        //{
-        //    _spriteRenderer.flipX = false;
-        //    return Walk;
-        //}
-        //else if (_pms.FrameInput.x < 0)
-        //{
-        //    _spriteRenderer.flipX = true;
-        //    return Walk;
-        //}
-
-        //if (_pms.FrameInput.y != 0) return Walk;
 
         return _idleDirection;
     }
@@ -100,7 +89,7 @@ public class PlayerAnimationController : BaseAnimationController
     private IEnumerator ActionCoroutine()
     {
         _isDashing = true;
-        yield return new WaitForSeconds(_movementSettings.DashDuration);
+        yield return new WaitForSeconds(_movementSettings.DashDuration + _movementSettings.DashSlowdown);
         _isDashing = false;
     }
 }

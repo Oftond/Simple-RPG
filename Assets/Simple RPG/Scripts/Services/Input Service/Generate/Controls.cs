@@ -174,15 +174,6 @@ namespace Player.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Click"",
-                    ""type"": ""Button"",
-                    ""id"": ""53bf3594-aff4-4c7c-ae36-c16dd29905fd"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -328,17 +319,6 @@ namespace Player.Input
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3019d350-138c-4368-b955-9b3ed9c6dd57"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard & Mouse"",
-                    ""action"": ""Click"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -373,7 +353,6 @@ namespace Player.Input
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
             m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
-            m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
         }
 
         ~@Controls()
@@ -463,7 +442,6 @@ namespace Player.Input
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_Menu;
         private readonly InputAction m_Player_Dash;
-        private readonly InputAction m_Player_Click;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -511,10 +489,6 @@ namespace Player.Input
             /// Provides access to the underlying input action "Player/Dash".
             /// </summary>
             public InputAction @Dash => m_Wrapper.m_Player_Dash;
-            /// <summary>
-            /// Provides access to the underlying input action "Player/Click".
-            /// </summary>
-            public InputAction @Click => m_Wrapper.m_Player_Click;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -568,9 +542,6 @@ namespace Player.Input
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
-                @Click.started += instance.OnClick;
-                @Click.performed += instance.OnClick;
-                @Click.canceled += instance.OnClick;
             }
 
             /// <summary>
@@ -609,9 +580,6 @@ namespace Player.Input
                 @Dash.started -= instance.OnDash;
                 @Dash.performed -= instance.OnDash;
                 @Dash.canceled -= instance.OnDash;
-                @Click.started -= instance.OnClick;
-                @Click.performed -= instance.OnClick;
-                @Click.canceled -= instance.OnClick;
             }
 
             /// <summary>
@@ -728,13 +696,6 @@ namespace Player.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnDash(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnClick(InputAction.CallbackContext context);
         }
     }
 }

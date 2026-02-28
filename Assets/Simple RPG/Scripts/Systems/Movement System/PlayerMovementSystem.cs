@@ -18,7 +18,9 @@ namespace Player.Movement
         #region Private Fields
         private Rigidbody2D _rb;
         private BoxCollider2D _bc;
+        private Camera _camera;
 
+        private bool _isFacingRight;
         private bool _isDashing;
         private Vector2 _frameInput;
         private Vector2 _frameVelocity;
@@ -36,6 +38,7 @@ namespace Player.Movement
 
         private void Start()
         {
+            _camera = Camera.main;
             _rb = GetComponent<Rigidbody2D>();
             _bc = GetComponent<BoxCollider2D>();
         }
@@ -55,25 +58,37 @@ namespace Player.Movement
 
         #region Movement
         private void GetMoveInput(Vector2 vector) => _frameInput = vector;
+
         private void HandleDirection()
         {
             float speed = _movementSettings.Speed * (_inputService.IsSprint ? _movementSettings.SpeedMultiplier : 1);
             _frameVelocity = _frameInput * speed;
+
+            CheckDirectionToFace(_camera.ScreenToWorldPoint(_inputService.CurrentMausePosition).x < transform.position.x);
         }
+
         private void ApplyMovement() => _rb.linearVelocity = _frameVelocity;
 
         private void OnDash()
         {
-            if (_isDashing || _frameInput.magnitude < 0.1f) return;
+            if (_isDashing) return;
 
-            StartCoroutine(DashCoroutine());
+            Vector2 velocityToDash = Vector2.zero;
+            float speed = _movementSettings.Speed * (_inputService.IsSprint ? _movementSettings.SpeedMultiplier : 1);
+
+            if (_frameInput != Vector2.zero)
+                velocityToDash = _frameInput * speed;
+            else
+                velocityToDash = _isFacingRight ? Vector2.right * (speed / 1) : Vector2.left * (speed / 1);
+            
+            StartCoroutine(DashCoroutine(velocityToDash));
         }
 
-        private IEnumerator DashCoroutine()
+        private IEnumerator DashCoroutine(Vector2 velocity)
         {
             _isDashing = true;
 
-            _frameVelocity *= _movementSettings.DashSpeed;
+            _frameVelocity = velocity * _movementSettings.DashSpeed;
             yield return new WaitForSeconds(_movementSettings.DashDuration);
 
             float elapsedTime = 0;
@@ -89,6 +104,22 @@ namespace Player.Movement
 
             _frameVelocity = Vector2.zero;
             _isDashing = false;
+        }
+
+        private void Turn()
+        {
+            if (_isDashing) return;
+
+            _isFacingRight = !_isFacingRight;
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
+
+        private void CheckDirectionToFace(bool isMovingRight)
+        {
+            if (isMovingRight != _isFacingRight)
+                Turn();
         }
         #endregion
     }

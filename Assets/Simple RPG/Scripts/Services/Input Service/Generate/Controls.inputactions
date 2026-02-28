@@ -86,15 +86,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Click",
-                    "type": "Button",
-                    "id": "53bf3594-aff4-4c7c-ae36-c16dd29905fd",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -238,17 +229,6 @@
                     "processors": "",
                     "groups": ";Keyboard & Mouse",
                     "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3019d350-138c-4368-b955-9b3ed9c6dd57",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard & Mouse",
-                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
