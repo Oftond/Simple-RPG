@@ -64,7 +64,7 @@ namespace Player.Movement
             float speed = _movementSettings.Speed * (_inputService.IsSprint ? _movementSettings.SpeedMultiplier : 1);
             _frameVelocity = _frameInput * speed;
 
-            CheckDirectionToFace(_camera.ScreenToWorldPoint(_inputService.CurrentMausePosition).x < transform.position.x);
+            //CheckDirectionToFace(_camera.ScreenToWorldPoint(_inputService.CurrentMausePosition).x < transform.position.x);
         }
 
         private void ApplyMovement() => _rb.linearVelocity = _frameVelocity;
@@ -106,21 +106,21 @@ namespace Player.Movement
             _isDashing = false;
         }
 
-        private void Turn()
-        {
-            if (_isDashing) return;
+        //private void Turn()
+        //{
+        //    if (_isDashing) return;
 
-            _isFacingRight = !_isFacingRight;
-            Vector3 scale = transform.localScale;
-            scale.x *= -1;
-            transform.localScale = scale;
-        }
+        //    _isFacingRight = !_isFacingRight;
+        //    Vector3 scale = transform.localScale;
+        //    scale.x *= -1;
+        //    transform.localScale = scale;
+        //}
 
-        private void CheckDirectionToFace(bool isMovingRight)
-        {
-            if (isMovingRight != _isFacingRight)
-                Turn();
-        }
+        //private void CheckDirectionToFace(bool isMovingRight)
+        //{
+        //    if (isMovingRight != _isFacingRight)
+        //        Turn();
+        //}
         #endregion
     }
 }

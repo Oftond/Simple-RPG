@@ -61,9 +61,9 @@ public class PlayerAnimationController : BaseAnimationController
     {
         if (Time.time < lockedTill) return _currentState;
 
-        //if (_camera.ScreenToWorldPoint(_pis.CurrentMausePosition).x > transform.position.x)
-        //    _spriteRenderer.flipX = false;
-        //else _spriteRenderer.flipX = true;
+        if (_camera.ScreenToWorldPoint(_pis.CurrentMausePosition).x > transform.position.x)
+            _spriteRenderer.flipX = false;
+        else _spriteRenderer.flipX = true;
 
         if (_isDashing)
             return Dash;
