@@ -725,7 +725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBattleSystem
   _weapon: {fileID: 563331893}
-  _weapons: {fileID: 11400000, guid: 121c0734b8d14884bb3e6fe262e9c909, type: 2}
+  _weaponSettings: {fileID: 11400000, guid: 121c0734b8d14884bb3e6fe262e9c909, type: 2}
 --- !u!1 &593559253
 GameObject:
   m_ObjectHideFlags: 0

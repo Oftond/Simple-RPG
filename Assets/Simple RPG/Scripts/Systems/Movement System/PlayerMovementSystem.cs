@@ -71,6 +71,7 @@ namespace Player.Movement
 
         private void OnDash()
         {
+            //if (_isDashing || _frameInput.magnitude < 0.1f) return;
             if (_isDashing) return;
 
             Vector2 velocityToDash = Vector2.zero;

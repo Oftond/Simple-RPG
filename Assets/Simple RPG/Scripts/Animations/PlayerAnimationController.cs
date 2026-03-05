@@ -82,6 +82,7 @@ public class PlayerAnimationController : BaseAnimationController
 
     private void OnDash()
     {
+        //if (_isDashing || !_pis.IsMove) return;
         if (_isDashing) return;
         StartCoroutine(ActionCoroutine());
     }
