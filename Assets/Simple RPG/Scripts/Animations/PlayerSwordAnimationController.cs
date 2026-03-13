@@ -11,7 +11,7 @@ public class PlayerSwordAnimationController : BaseAnimationController
     protected SpriteRenderer _spriteRenderer;
     protected Camera _camera;
 
-    protected static readonly int SwordSlash = Animator.StringToHash("SwordSlash");
+    protected static readonly int SwordSlash = Animator.StringToHash("SwordRightHit");
 
     protected void OnEnable()
     {
