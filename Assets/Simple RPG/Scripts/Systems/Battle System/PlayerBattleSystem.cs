@@ -11,6 +11,8 @@ public class PlayerBattleSystem : MonoBehaviour
 
     private bool _isAttacking;
 
+    public bool IsAttacking => _isAttacking;
+
     private void OnEnable()
     {
         if (_weapon.activeSelf) _weapon.SetActive(false);
@@ -37,10 +39,5 @@ public class PlayerBattleSystem : MonoBehaviour
 
         _isAttacking = false;
         _weapon.SetActive(false);
-    }
-
-    private void GetState()
-    {
-
     }
 }

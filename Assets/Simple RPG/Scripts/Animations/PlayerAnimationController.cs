@@ -54,7 +54,7 @@ public class PlayerAnimationController : BaseAnimationController
     protected override void GetComponents()
     {
         _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     protected override int GetState()
@@ -82,8 +82,8 @@ public class PlayerAnimationController : BaseAnimationController
 
     private void OnDash()
     {
-        //if (_isDashing || !_pis.IsMove) return;
-        if (_isDashing) return;
+        if (_isDashing || !_pis.IsMove) return;
+
         StartCoroutine(ActionCoroutine());
     }
 

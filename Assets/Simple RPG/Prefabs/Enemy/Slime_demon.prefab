@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a1e3b8988c9de64ea5d09cfe5690280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  _speed: 5
+  _speed: 2
 --- !u!114 &669248390240930227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -820161363
-  m_SortingLayer: 7
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1905984581009440727, guid: 53f434d7a56add648991f6e7d08b7888, type: 3}

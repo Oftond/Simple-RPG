@@ -50,6 +50,9 @@ TagManager:
   - name: Grass
     uniqueID: 1280356153
     locked: 0
+  - name: Enemy
+    uniqueID: 3474805933
+    locked: 0
   - name: Player
     uniqueID: 663876107
     locked: 0
@@ -58,9 +61,6 @@ TagManager:
     locked: 0
   - name: Plant
     uniqueID: 114200615
-    locked: 0
-  - name: Enemy
-    uniqueID: 3474805933
     locked: 0
   m_RenderingLayers:
   - Default

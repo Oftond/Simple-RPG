@@ -63,26 +63,18 @@ namespace Player.Movement
         {
             float speed = _movementSettings.Speed * (_inputService.IsSprint ? _movementSettings.SpeedMultiplier : 1);
             _frameVelocity = _frameInput * speed;
-
-            //CheckDirectionToFace(_camera.ScreenToWorldPoint(_inputService.CurrentMausePosition).x < transform.position.x);
         }
 
         private void ApplyMovement() => _rb.linearVelocity = _frameVelocity;
 
         private void OnDash()
         {
-            //if (_isDashing || _frameInput.magnitude < 0.1f) return;
-            if (_isDashing) return;
+            if (_isDashing || _frameInput.magnitude < 0.1f) return;
 
             Vector2 velocityToDash = Vector2.zero;
             float speed = _movementSettings.Speed * (_inputService.IsSprint ? _movementSettings.SpeedMultiplier : 1);
-
-            if (_frameInput != Vector2.zero)
-                velocityToDash = _frameInput * speed;
-            else
-                velocityToDash = _isFacingRight ? Vector2.right * (speed / 1) : Vector2.left * (speed / 1);
             
-            StartCoroutine(DashCoroutine(velocityToDash));
+            StartCoroutine(DashCoroutine(_frameInput * speed));
         }
 
         private IEnumerator DashCoroutine(Vector2 velocity)
@@ -106,22 +98,6 @@ namespace Player.Movement
             _frameVelocity = Vector2.zero;
             _isDashing = false;
         }
-
-        //private void Turn()
-        //{
-        //    if (_isDashing) return;
-
-        //    _isFacingRight = !_isFacingRight;
-        //    Vector3 scale = transform.localScale;
-        //    scale.x *= -1;
-        //    transform.localScale = scale;
-        //}
-
-        //private void CheckDirectionToFace(bool isMovingRight)
-        //{
-        //    if (isMovingRight != _isFacingRight)
-        //        Turn();
-        //}
         #endregion
     }
 }
